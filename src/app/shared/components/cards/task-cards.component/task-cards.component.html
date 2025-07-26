@@ -1,0 +1,102 @@
+<section
+    tuiCardLarge="compact"
+    [tuiCardCollapsed]="collapsed()"
+>
+    <header tuiHeader="body-m">
+        <hgroup tuiTitle>
+            <h2> {{ task.title }} </h2>
+            <p tuiSubtitle>
+                {{ task.subtitle }}
+            </p>
+        </hgroup>
+        <aside tuiAccessories>
+            <button
+                appearance="action-grayscale"
+                iconEnd="@tui.pencil"
+                tuiLink
+                type="button"
+            >
+            </button>
+            <button
+                appearance="action-grayscale"
+                iconEnd="@tui.trash-2"
+                tuiLink
+                type="button"
+            >
+            </button>
+        </aside>
+    </header>
+    <div tuiCardRow class="task-info">
+        <div tuiTitle>
+            <div tuiSubtitle>
+                <tui-icon icon="@tui.file-chart-pie" />
+                Status
+            </div>
+            <div>
+                {{ task.status }}
+            </div>
+        </div>
+        <div tuiTitle>
+            <div tuiSubtitle>
+                <tui-icon icon="@tui.library-big" />
+                Group
+            </div>
+            <div>
+                {{ task.group }}
+            </div>
+        </div>
+        <div tuiTitle>
+            <div tuiSubtitle>
+                <tui-icon icon="@tui.clock" />
+                Created
+            </div>
+            <div>
+                {{ task.dateCreated | utcToLocal}}
+            </div>
+        </div>
+        <button
+            appearance="secondary"
+            size="s"
+            tuiIconButton
+            type="button"
+            [tuiChevron]="!collapsed()"
+            (click)="collapsed.set(!collapsed())"
+        >
+            Expand
+        </button>
+    </div>
+    <tui-expand [expanded]="!collapsed()">
+        <table tuiTable>
+            <thead>
+                <tr>
+                    <th tuiTh>Subtask</th>
+                    <th tuiTh>End Time</th>
+                    <th tuiTh>Status</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let subtask of task.subtasks; trackBy: trackBySubtaskId ">
+                <tr>
+                    <td tuiTd>{{ subtask.name }}</td>
+                    <td tuiTd>{{ subtask.endTime | utcToLocal}}</td>
+                    <td tuiTd>
+                        <tui-icon
+                            *ngIf="subtask.isChecked"
+                            icon="@tui.check"
+                            class="color-success"
+                        />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </tui-expand>
+
+    <div class="progress-container">
+        <p class="progress-container__label" tuiSubtitle>Progress</p>
+        <progress
+            max="100"
+            tuiProgressBar
+            [value]="task.progress"
+        ></progress>
+        <p class="progress-container__percentage" tuiSubtitle>{{ task.progress }}%</p>
+    </div>
+</section>

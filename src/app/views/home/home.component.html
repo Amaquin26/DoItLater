@@ -1,0 +1,22 @@
+<header tuiHeader="h3">
+    <hgroup tuiTitle>
+        <h3>All Tasks</h3>
+        <p tuiSubtitle>See all your tasks here.</p>
+    </hgroup>
+</header>
+
+<app-search-input 
+    placeholder="Type the task name"
+    label="Search task here"
+    (valueChanged)="onSearchInputValueChanged($event)"
+/>
+
+<!-- <app-select-filter 
+    label="Sort By"
+    [options]="sortByFilters"
+    (filterValueChanged)="onSortByFiltersValueChanged($event)"
+/> -->
+
+<div class="tasks-cards-container" *ngFor="let task of tasks; trackBy: trackByTaskId">
+    <app-task-cards class="task-card" [task]="task"/>
+</div>

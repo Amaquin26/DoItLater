@@ -1,0 +1,31 @@
+<label tuiLabel class="container"
+>
+    {{label}}
+    <tui-textfield 
+        tuiChevron
+        tuiTextfieldSize="m"  
+         
+    >
+        <input
+            placeholder="Select"
+            tuiSelect
+            [(ngModel)]="currentLabel"
+        />
+
+        <tui-data-list
+            *tuiTextfieldDropdown
+            tuiDataListDropdownManager
+        >
+            <div *ngFor="let option of options" (click)="onSelectOption(option)">
+                <div
+                    new
+                    tuiOption
+                    type="button"
+                    
+                >
+                    {{ option.label }}
+                </div>
+            </div>
+        </tui-data-list>
+    </tui-textfield>
+</label>

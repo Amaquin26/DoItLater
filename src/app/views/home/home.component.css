@@ -1,0 +1,11 @@
+.tasks-cards-container{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-card{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

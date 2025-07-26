@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+/* Variables */
+:root {
+  --color-success: #4caf50; /* or your desired green */
+}
+
+/* Reset margins and paddings */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Optional: Smooth scrolling and font rendering */
+html, body {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.layer-fix{
+  z-index: 9999999 !important
+}
+
+/* Color scheme */
+
+.color-success {
+  color: var(--color-success);
+}

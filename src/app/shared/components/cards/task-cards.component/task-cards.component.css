@@ -1,0 +1,27 @@
+.progress-container{
+    margin-top: 1rem;
+}
+
+.progress-container__label{
+    margin-bottom: .5rem;
+}
+
+.progress-container__percentage{
+    text-align: end;
+    width: 100%;
+    margin-top: .5rem;
+}
+
+input[type="checkbox"]:disabled {
+  accent-color: #4caf50; /* or any color you want */
+  opacity: 1; /* prevent fading */
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .tasks-task-info{
+        flex-direction: column !important;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}

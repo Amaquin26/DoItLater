@@ -1,0 +1,12 @@
+<tui-textfield
+    #m
+    iconStart="@tui.search"
+    tuiTextfieldSize="m"
+>
+    <input
+        tuiTextfield
+        [placeholder]="m.focused() ? placeholder : label"
+        [(ngModel)]="inputValue"
+        (input)="onInputChange()"
+    />
+</tui-textfield>

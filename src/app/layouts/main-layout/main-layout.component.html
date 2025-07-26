@@ -1,0 +1,129 @@
+<!-- Ignore this part, it is only here to position drawer inside the example block -->
+<div class="custom-portal" class="main-navbar-header"><ng-container #viewContainer /></div>
+
+<!-- Navbar Header -->
+<header  tuiNavigationHeader class="layer-fix">
+    <button
+        title="Menu"
+        tuiIconButton
+        tuiNavigationDrawer
+        type="button"
+        [(open)]="open"
+    >
+        <tui-data-list>
+            <tui-opt-group
+                [label]="'Tasks'"
+            >
+                <button
+                    *ngFor="let item of tasksNavigationComponents"
+                    tuiOption
+                    type="button"
+                    (click)="open = false"
+                >
+                    <tui-icon
+                        [icon]="'@tui.' + item.icon"
+                    />
+                    {{ item.name }}
+                </button>
+            </tui-opt-group>
+            <tui-opt-group>
+                <label tuiOption>
+                    <input
+                        size="s"
+                        tuiSwitch
+                        type="checkbox"
+                        [(ngModel)]="switch"
+                    />
+                    Dark mode
+                </label>
+            </tui-opt-group>
+        </tui-data-list>
+    </button>
+    
+    <span tuiNavigationLogo>
+        <tui-icon icon="@tui.home" />
+        <span tuiFade>Todo App</span>
+        <tui-badge>Test</tui-badge>
+    </span>
+    <!-- <span tuiNavigationSegments>
+        <button
+            appearance="secondary-grayscale"
+            tuiButton
+            type="button"
+        >
+            Link 1
+        </button>
+        <button
+            appearance="secondary-grayscale"
+            tuiButton
+            type="button"
+        >
+            Link 2
+        </button>
+        <button
+            appearance="secondary-grayscale"
+            tuiButton
+            tuiChevron
+            tuiDropdownOpen
+            type="button"
+            [tuiDropdown]="products"
+        >
+            <span
+                [style.overflow]="'hidden'"
+                [style.text-overflow]="'ellipsis'"
+            >
+                Todos
+            </span>
+            <ng-template #products>
+                <tui-data-list size="s">
+                    <button
+                        tuiOption
+                        type="button"
+                    >
+                        Todos
+                        <tui-icon
+                            icon="@tui.check"
+                            [style.font-size.em]="1"
+                            [style.margin-left.rem]="0.5"
+                        />
+                    </button>
+                    <button
+                        tuiOption
+                        type="button"
+                    >
+                        Something else
+                    </button>
+                </tui-data-list>
+            </ng-template>
+        </button>
+    </span> -->
+    <hr />
+    <button
+        appearance="secondary-grayscale"
+        iconStart="@tui.plus"
+        tuiButton
+        type="button"
+    >
+        Create
+    </button>
+    <button
+        iconStart="@tui.bell"
+        tuiIconButton
+        type="button"
+    >
+        Notifications
+        <tui-badge-notification />
+    </button>
+    <button
+        iconStart="@tui.ellipsis"
+        tuiIconButton
+        type="button"
+    >
+        More
+    </button>
+    <tui-avatar src="AI" />
+</header>
+
+<div class="child-container">
+    <router-outlet />
+</div>

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { TuiTitle } from '@taiga-ui/core';
 import { TuiHeader } from '@taiga-ui/layout';
 import { SearchInputComponent } from "../../shared/components/textfields/search-input/search-input.component";
-import { SORT_BY_FILTERS, SORT_BY_FILTERS_DEFAULT } from '../../shared/constants/sort-filters.constants';
+import { SORT_BY_FILTERS, SORT_BY_FILTERS_DEFAULT } from '../../shared/constants/filters/sort-filters.constants';
 import { TaskCardsComponent } from "../../shared/components/cards/task-cards.component/task-cards.component";
-import { TaskService } from '../../api-services/task.service';
+import { TaskService } from '../../api-services/tasks/task.service';
 import { Task } from '../../models/task.model';
 import { NgFor } from '@angular/common';
 

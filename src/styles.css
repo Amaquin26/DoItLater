@@ -26,6 +26,22 @@ html, body {
   z-index: 9999999 !important
 }
 
+/* Util Class */
+
+.spinner {
+  animation: spin 1.5s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* Color scheme */
 
 .color-success {

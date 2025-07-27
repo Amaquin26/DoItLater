@@ -1,0 +1,33 @@
+.main-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.main-card{
+    min-width: 600px;
+}
+
+.my-1rem{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.mb-1rem{
+    margin-bottom: 1rem;
+}
+
+.mt-1rem{
+    margin-top: 1rem;
+}
+
+
+.login-button{
+    width: 100%;
+}
+
+.footer-text{
+    font-size: small;
+    opacity: 75%;
+}

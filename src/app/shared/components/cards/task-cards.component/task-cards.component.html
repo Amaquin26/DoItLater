@@ -1,5 +1,5 @@
 <section
-    tuiCardLarge="compact"
+    tuiCardLarge
     [tuiCardCollapsed]="collapsed()"
 >
     <header tuiHeader="body-m">
@@ -26,6 +26,17 @@
             </button>
         </aside>
     </header>
+
+    <div class="progress-container">
+        <p class="progress-container__label" tuiSubtitle>Progress</p>
+        <progress
+            max="100"
+            tuiProgressBar
+            [value]="task.progress"
+        ></progress>
+        <p class="progress-container__percentage" tuiSubtitle>{{ task.progress }}%</p>
+    </div>
+
     <div tuiCardRow class="task-info">
         <div tuiTitle>
             <div tuiSubtitle>
@@ -65,7 +76,8 @@
             Expand
         </button>
     </div>
-    <tui-expand [expanded]="!collapsed()">
+
+    <tui-expand [expanded]="!collapsed()" >
         <table tuiTable>
             <thead>
                 <tr>
@@ -89,14 +101,4 @@
             </tbody>
         </table>
     </tui-expand>
-
-    <div class="progress-container">
-        <p class="progress-container__label" tuiSubtitle>Progress</p>
-        <progress
-            max="100"
-            tuiProgressBar
-            [value]="task.progress"
-        ></progress>
-        <p class="progress-container__percentage" tuiSubtitle>{{ task.progress }}%</p>
-    </div>
 </section>

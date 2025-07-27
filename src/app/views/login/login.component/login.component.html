@@ -1,0 +1,94 @@
+<div class="main-container">
+    <div>
+        <div *ngIf="isNotificationVisible() && errorMessage()" class="mb-1rem">
+            <tui-notification  size="l" appearance="negative">
+                {{ errorMessage() }}
+                <button
+                    iconStart="@tui.circle-x"
+                    tuiIconButton
+                    type="button"
+                    (click)="setNotificationVisibility(false)"
+                >
+                    Close
+                </button>
+            </tui-notification>
+        </div>
+
+        <div
+            tuiAppearance="floating"
+            tuiCardLarge
+            class="main-card"
+        >
+            <section>
+                <form
+                    tuiForm="l"
+                    [formGroup]="loginForm"
+                    (ngSubmit)="handleSubmitForm()"
+                >
+                    <header tuiHeader class="my-1rem">
+                        <h3 tuiTitle>
+                            Login
+                            <span tuiSubtitle>Continue with your credentials</span>
+                        </h3>
+                    </header>
+
+                    <tui-textfield class="mb-1rem">
+                        <label tuiLabel>Email</label>
+                        <input
+                            formControlName="email"
+                            placeholder="youremail@mail.com"
+                            tuiTextfield
+                            type="email"
+                        />
+                    </tui-textfield>
+
+                    <tui-error
+                        formControlName="email"
+                        [error]="[] | tuiFieldError | async"
+                        class="my-1rem"
+                    />
+
+                    <tui-textfield class="mb-1rem">
+                        <label tuiLabel>Input password</label>
+                        <input
+                            formControlName="password"
+                            tuiTextfield
+                            type="password"
+                        />
+                        <tui-icon tuiPassword />
+                    </tui-textfield>
+            
+                    <tui-error
+                        formControlName="password"
+                        [error]="[] | tuiFieldError | async"
+                        class="my-1rem"
+                    />
+                    <footer>
+                        <button
+                            tuiButton
+                            type="submit"
+                            class="login-button"
+                            [disabled]="isSubmitting() || !loginForm.valid"
+                            
+                        >
+                            Login
+                            <span *ngIf="isSubmitting()">
+                                <tui-icon  icon="@tui.loader" class="spinner"/>
+                            </span>
+                        </button>
+
+                        <p class="footer-text">
+                            Don't have an account? 
+                            <a
+                                tuiLink
+                                [routerLink]="registerFormLink"
+                            >
+                                Register here.
+                            </a>
+                        </p>
+                    </footer>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,40 +1,27 @@
 <section
+    tuiAppearance="floating"
     tuiCardLarge
     [tuiCardCollapsed]="collapsed()"
 >
     <header tuiHeader="body-m">
         <hgroup tuiTitle>
-            <h2> {{ task.title }} </h2>
+            <h2 style="cursor: pointer;" (click)="goToTaskPage()"> {{ task.title }} </h2>
             <p tuiSubtitle>
                 {{ task.subtitle }}
             </p>
         </hgroup>
-        <aside tuiAccessories>
-            <button
-                appearance="action-grayscale"
-                iconEnd="@tui.pencil"
-                tuiLink
-                type="button"
-            >
-            </button>
-            <button
-                appearance="action-grayscale"
-                iconEnd="@tui.trash-2"
-                tuiLink
-                type="button"
-            >
-            </button>
-        </aside>
     </header>
 
     <div class="progress-container">
-        <p class="progress-container__label" tuiSubtitle>Progress</p>
+       <div class="progress-container__text-container">
+             <p class="progress-container__label" tuiSubtitle>Progress</p>
+            <p class="progress-container__percentage" tuiSubtitle>{{ task.progress }}%</p>
+       </div>
         <progress
             max="100"
             tuiProgressBar
             [value]="task.progress"
         ></progress>
-        <p class="progress-container__percentage" tuiSubtitle>{{ task.progress }}%</p>
     </div>
 
     <div tuiCardRow class="task-info">
@@ -53,7 +40,7 @@
                 Group
             </div>
             <div>
-                {{ task.group }}
+                {{ task.group ?? 'N/A'}}
             </div>
         </div>
         <div tuiTitle>
@@ -100,5 +87,6 @@
                 </tr>
             </tbody>
         </table>
+        <p *ngIf="!task.subtasks || !task.subtasks.length" class="no-substasks" tuiSubtitle>No Subtasks</p>
     </tui-expand>
 </section>

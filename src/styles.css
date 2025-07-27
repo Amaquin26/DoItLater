@@ -33,6 +33,13 @@ html, body {
   display: inline-block;
 }
 
+.main-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

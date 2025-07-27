@@ -7,6 +7,7 @@ import { AuthService } from '../../../api-services/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { AUTH_ROUTE, ROUTES } from '../../../shared/constants/routes/routes.constants';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { finalize, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,8 @@ import { AsyncPipe, NgIf } from '@angular/common';
 export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router){}
 
+  private destroy$ = new Subject<void>();
+
   @ViewChild('toastAlertTemplate')
   protected toastAlertTemplate?: TemplateRef<TuiAlertContext>;
 
@@ -45,7 +48,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.authService.isLoggedIn()){
-      this.router.navigateByUrl(ROUTES.home);
+      this.router.navigateByUrl(`/${ROUTES.home}`);
     }
   }
 
@@ -69,10 +72,14 @@ export class LoginComponent implements OnInit {
 
     this.authService
       .loginUser(this.loginForm.value)
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.isSubmitting.set(false))
+      )
       .subscribe({
         next: (res: any) => {
           this.authService.saveAccessToken(res.token);
-          this.router.navigateByUrl(ROUTES.home);
+          this.router.navigateByUrl(`/${ROUTES.home}`);
         },
         error: err => {
           console.log(err)
@@ -82,5 +89,10 @@ export class LoginComponent implements OnInit {
       });
 
       this.isSubmitting.set(false);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

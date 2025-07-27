@@ -11,6 +11,6 @@ export class UtcToLocalPipe implements PipeTransform {
     const utcDate = typeof value === 'string' ? parseISO(value) : value;
     const localDate = new Date(utcDate); // Date object auto converts to local time
 
-    return format(localDate, 'MMMM d, yyyy h:mm a'); // Example: May 26, 2025 10:50 pm
+    return format(localDate, 'MMMM d, yyyy h:mm a');
   }
 }

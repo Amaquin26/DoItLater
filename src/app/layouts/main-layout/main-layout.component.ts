@@ -1,5 +1,5 @@
 import {NgForOf} from '@angular/common';
-import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterOutlet} from '@angular/router';
 import {tuiAsPortal, TuiPortals} from '@taiga-ui/cdk';
@@ -23,31 +23,32 @@ import {
 } from '@taiga-ui/kit';
 import {TuiNavigation} from '@taiga-ui/layout';
 import { TASK_NAVIGATION_COMPONENTS } from '../../shared/constants/navigation/tasks-navigation.constants';
+import { ExpandibleSidebarComponent } from "../../shared/components/navigation/expandible-sidebar/expandible-sidebar.component";
 
 @Component({
     standalone: true,
     selector: 'app-main-layout',
     exportAs: "Example1",
     imports: [
-        FormsModule,
-        NgForOf,
-        TuiAppearance,
-        TuiAvatar,
-        TuiBadge,
-        TuiBadgeNotification,
-        TuiButton,
-        TuiChevron,
-        TuiDataList,
-        TuiDropdown,
-        TuiFade,
-        TuiIcon,
-        TuiNavigation,
-        TuiSwitch,
-        TuiTabs,
-        TuiTextfield,
-        RouterOutlet,
-        TuiIcon
-    ],
+    FormsModule,
+    NgForOf,
+    TuiAppearance,
+    TuiAvatar,
+    TuiBadge,
+    TuiBadgeNotification,
+    TuiButton,
+    TuiDataList,
+    TuiDropdown,
+    TuiFade,
+    TuiIcon,
+    TuiNavigation,
+    TuiSwitch,
+    TuiTabs,
+    TuiTextfield,
+    RouterOutlet,
+    TuiIcon,
+    ExpandibleSidebarComponent
+],
     templateUrl: './main-layout.component.html',
     styleUrls: ['./main-layout.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,

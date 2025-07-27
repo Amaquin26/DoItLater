@@ -4,20 +4,20 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { TOKEN_KEY } from '../../shared/constants/keys/application-keys.constants';
 import { AUTH_API_ROUTE } from '../../shared/constants/routes/api/api.routes.constants';
-import { AUTH_ROUTE } from '../../shared/constants/routes/routes.constants';
+import { AUTH_ROUTE } from '../../shared/constants/routes/routes.constants';;
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http:HttpClient, private router:Router){}
+  constructor(private httpClient:HttpClient, private router:Router){}
 
   createUser(formData:any){
-    return this.http.post(`${environment.apiBaseUrl}/${AUTH_API_ROUTE.signup}`,formData);
+    return this.httpClient.post(`${environment.apiBaseUrl}/${AUTH_API_ROUTE.signup}`,formData);
   }
 
   loginUser(formData:any){
-    return this.http.post(`${environment.apiBaseUrl}/${AUTH_API_ROUTE.signin}`, formData);
+    return this.httpClient.post(`${environment.apiBaseUrl}/${AUTH_API_ROUTE.signin}`, formData);
   }
 
   isLoggedIn(){

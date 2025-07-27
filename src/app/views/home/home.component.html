@@ -5,17 +5,21 @@
     </hgroup>
 </header>
 
-<app-search-input 
+<!-- <app-search-input 
     placeholder="Type the task name"
     label="Search task here"
     (valueChanged)="onSearchInputValueChanged($event)"
-/>
+/> -->
 
 <!-- <app-select-filter 
     label="Sort By"
     [options]="sortByFilters"
     (filterValueChanged)="onSortByFiltersValueChanged($event)"
 /> -->
+
+<app-spinner 
+    *ngIf="isFetching()"
+/>
 
 <div class="tasks-cards-container" *ngFor="let task of tasks; trackBy: trackByTaskId">
     <app-task-cards class="task-card" [task]="task"/>

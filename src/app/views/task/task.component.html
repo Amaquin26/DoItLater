@@ -1,0 +1,139 @@
+<app-spinner 
+    *ngIf="isFetching()"
+/>
+
+<ng-container *ngIf="task">
+    <div
+        tuiAppearance="floating"
+        tuiCardLarge
+    >
+        <header tuiHeader="body-m">
+            <hgroup tuiTitle>
+                <h1> {{ task.title }} </h1>
+                <p tuiSubtitle>
+                    {{ task.subtitle }}
+                </p>
+            </hgroup>
+            <div>
+                <button
+                    size="xs"
+                    tuiButton
+                    type="button"
+                    appearance="primary"
+                    style="margin-right: 1rem;"
+                    (click)="goToEditTask()"
+                >
+                    <tui-icon icon="@tui.pencil"/>
+                </button>
+                <button
+                    size="xs"
+                    tuiButton
+                    type="button"
+                    appearance="primary-destructive"
+                    (click)="deleteTask()"
+                >
+                    <tui-icon icon="@tui.trash-2"/>
+                </button>
+            </div>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-container__text-container">
+                    <p class="progress-container__label" tuiSubtitle>Progress</p>
+                    <p class="progress-container__percentage" tuiSubtitle>{{ task.progress }}%</p>
+            </div>
+            <progress
+                max="100"
+                tuiProgressBar
+                [value]="task.progress"
+            ></progress>
+        </div>
+
+        <div tuiCardRow class="task-info">
+            <div tuiTitle>
+                <div tuiSubtitle>
+                    <tui-icon icon="@tui.file-chart-pie" />
+                    Status
+                </div>
+                <div>
+                    {{ task.status }}
+                </div>
+            </div>
+            <div tuiTitle>
+                <div tuiSubtitle>
+                    <tui-icon icon="@tui.library-big" />
+                    Group
+                </div>
+                <div>
+                    {{ task.group ?? 'N/A' }}
+                </div>
+            </div>
+            <div tuiTitle>
+                <div tuiSubtitle>
+                    <tui-icon icon="@tui.clock" />
+                    Created
+                </div>
+                <div>
+                    {{ task.dateCreated | utcToLocal}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="button-group">
+        <button
+            size="s"
+            tuiButton
+            type="button"
+            iconEnd="@tui.plus"
+        >
+            Add subtask
+        </button>
+    </section>
+
+
+
+    <section>
+        <p *ngIf="!task.subtasks || !task.subtasks.length" class="no-substasks" tuiSubtitle>No Subtasks</p>
+        <table
+            tuiTable
+            class="table"
+            [columns]="columns"
+            *ngIf="task.subtasks && task.subtasks.length"
+        >
+            <thead>
+                <tr tuiThGroup>
+                    <th
+                        tuiTh
+                        [resizable]="true"
+                    >
+                        Name
+                    </th>
+                    <th tuiTh>Balance</th>
+                </tr>
+            </thead>
+            <tbody
+                tuiTbody
+                [data]="task.subtasks!"
+            >
+                <tr
+                    *ngFor="let item of task.subtasks"
+                    tuiTr
+                >
+                    <td
+                        *tuiCell="'beginTime'"
+                        tuiTd
+                    >
+                        {{ item.beginTime | utcToLocal }}
+                    </td>
+                    <td
+                        *tuiCell="'endTime'"
+                        tuiTd
+                    >
+                        {{ item.endTime | utcToLocal }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</ng-container>

@@ -1,0 +1,72 @@
+<div class="main-container">
+    <div>
+        <div
+            tuiAppearance="floating"
+            tuiCardLarge
+            class="main-card"
+        >
+            <section>
+                <form
+                    tuiForm="l"
+                    [formGroup]="taskCreationForm"
+                    (ngSubmit)="handleSubmitForm()"
+                >
+                    <header tuiHeader class="my-1rem">
+                        <h3 tuiTitle>
+                            Create
+                            <span tuiSubtitle>Create a new task</span>
+                        </h3>
+                    </header>
+
+                    <tui-textfield class="my-1rem">
+                        <label tuiLabel>Task Name</label>
+                        <input
+                            formControlName="title"
+                            placeholder="Task name"
+                            tuiTextfield
+                        />
+                    </tui-textfield>
+
+                    <tui-error
+                        formControlName="title"
+                        [error]="[] | tuiFieldError | async"
+                        
+                    />
+
+                    <tui-textfield class="my-1rem">
+                        <label tuiLabel>Description</label>
+                        <input
+                            formControlName="subtitle"
+                            placeholder="Short description"
+                            tuiTextfield
+                        />
+                    </tui-textfield>
+
+                    <footer>
+                        <button
+                            tuiButton
+                            type="button"
+                            appearance="primary-destructive"
+                            [disabled]="isSubmitting()"
+                            (click)="cancelCreation()"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            tuiButton
+                            type="submit"
+                            [disabled]="isSubmitting() || !taskCreationForm.valid"
+                            
+                        >
+                            Create
+                            <span *ngIf="isSubmitting()">
+                                <tui-icon  icon="@tui.loader" class="spinner"/>
+                            </span>
+                        </button>
+                    </footer>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>

@@ -13,6 +13,8 @@ export const testTaskData: Array<Task> = [
         estimatedEndDate: "2025-07-29T21:45:00Z",
         progress: 25,
         subtasks: testSubtaskData1,
+        isOwner: true,
+        taskOwner: "John Doe",
     },
     {
         id: 2,
@@ -25,5 +27,7 @@ export const testTaskData: Array<Task> = [
         estimatedEndDate: "2025-07-26T21:45:00Z",
         progress: 50,
         subtasks: testSubtaskData2,
+        isOwner: true,
+        taskOwner: "John Doe",
     },
 ]

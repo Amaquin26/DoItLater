@@ -1,0 +1,79 @@
+<app-spinner 
+    *ngIf="isFetching()"
+/>
+
+
+<ng-container *ngIf="task">
+    <div class="main-container">
+        <div>
+            <div
+                tuiAppearance="floating"
+                tuiCardLarge
+                class="main-card"
+            >
+                <section>
+                    <form
+                        tuiForm="l"
+                        [formGroup]="taskEditForm"
+                        (ngSubmit)="handleSubmitForm()"
+                    >
+                        <header tuiHeader class="my-1rem">
+                            <h3 tuiTitle>
+                                Edit
+                                <span tuiSubtitle>Edit this task</span>
+                            </h3>
+                        </header>
+
+                        <tui-textfield class="my-1rem">
+                            <label tuiLabel>Task Name</label>
+                            <input
+                                formControlName="title"
+                                placeholder="Task name"
+                                tuiTextfield
+                            />
+                        </tui-textfield>
+
+                        <tui-error
+                            formControlName="title"
+                            [error]="[] | tuiFieldError | async"
+                            
+                        />
+
+                        <tui-textfield class="my-1rem">
+                            <label tuiLabel>Description</label>
+                            <input
+                                formControlName="subtitle"
+                                placeholder="Short description"
+                                tuiTextfield
+                            />
+                        </tui-textfield>
+
+                        <footer>
+                            <button
+                                tuiButton
+                                type="button"
+                                appearance="primary-destructive"
+                                [disabled]="isSubmitting()"
+                                (click)="cancelEdit()"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                tuiButton
+                                type="submit"
+                                [disabled]="isSubmitting()"
+                                
+                            >
+                                Save
+                                <span *ngIf="isSubmitting()">
+                                    <tui-icon  icon="@tui.loader" class="spinner"/>
+                                </span>
+                            </button>
+                        </footer>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</ng-container>

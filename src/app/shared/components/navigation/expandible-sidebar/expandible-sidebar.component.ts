@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TuiDataList, TuiDropdown } from '@taiga-ui/core';
@@ -6,7 +7,7 @@ import { TuiNavigation } from '@taiga-ui/layout';
 
 @Component({
   selector: 'app-expandible-sidebar',
-  imports: [TuiNavigation,TuiBadge,TuiDropdown,RouterLink,TuiDataList],
+  imports: [TuiNavigation,TuiBadge,TuiDropdown,RouterLink,TuiDataList,NgIf],
   templateUrl: './expandible-sidebar.component.html',
   styleUrl: './expandible-sidebar.component.css'
 })

@@ -3,47 +3,8 @@
 
 <!-- Navbar Header -->
 <header  tuiNavigationHeader class="layer-fix">
-    <button
-        title="Menu"
-        tuiIconButton
-        tuiNavigationDrawer
-        type="button"
-        [(open)]="open"
-    >
-        <tui-data-list>
-            <tui-opt-group
-                [label]="'Tasks'"
-            >
-                <button
-                    *ngFor="let item of tasksNavigationComponents"
-                    tuiOption
-                    type="button"
-                    (click)="open = false"
-                >
-                    <tui-icon
-                        [icon]="'@tui.' + item.icon"
-                    />
-                    {{ item.name }}
-                </button>
-            </tui-opt-group>
-            <tui-opt-group>
-                <label tuiOption>
-                    <input
-                        size="s"
-                        tuiSwitch
-                        type="checkbox"
-                        [(ngModel)]="switch"
-                    />
-                    Dark mode
-                </label>
-            </tui-opt-group>
-        </tui-data-list>
-    </button>
-    
     <span tuiNavigationLogo>
-        <tui-icon icon="@tui.home" />
         <span tuiFade>Todo App</span>
-        <tui-badge>Test</tui-badge>
     </span>
     <!-- <span tuiNavigationSegments>
         <button
@@ -123,7 +84,13 @@
     </button>
     <tui-avatar src="AI" />
 </header>
-
-<div class="child-container">
-    <router-outlet />
+<div [style.display]="'flex'">
+    <app-expandible-sidebar />
+    <main tuiNavigationMain>
+        <ng-container>
+            <div class="child-container">
+                <router-outlet />
+            </div>
+        </ng-container>
+    </main>
 </div>

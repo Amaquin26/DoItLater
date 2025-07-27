@@ -15,10 +15,11 @@
     opacity: 50%;
 }
 
-input[type="checkbox"]:disabled {
-  accent-color: #4caf50; /* or any color you want */
-  opacity: 1; /* prevent fading */
-  cursor: not-allowed;
+.button-group{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex; 
+    justify-content: flex-end;
 }
 
 @media (max-width: 600px) {

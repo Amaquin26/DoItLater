@@ -9,6 +9,7 @@ import { Task } from '../../models/task.model';
 import { NgFor, NgIf } from '@angular/common';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { SpinnerComponent } from "../../shared/components/spinner/spinner.component";
+import { testTaskData } from '../../data/test/task-test.data';
 
 @Component({
   selector: 'app-home',
@@ -47,6 +48,11 @@ export class HomeComponent implements OnInit{
       .subscribe({
         next: (res) => {
           this.tasks = res
+        },
+        error: (err) => {
+          // test data
+          this.tasks = testTaskData; // Fallback to test data in case of error
+          // end test data
         }
       });
   }

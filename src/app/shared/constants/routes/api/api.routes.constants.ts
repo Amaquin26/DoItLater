@@ -10,3 +10,13 @@ export const TASK_API_ROUTE = {
     update: 'TodoTask/Update',
     delete: (id: number | string) => `TodoTask/Delete/${id}`,
 }
+
+export const SUBTASK_API_ROUTE = {
+    getAll: 'Subtask/GetAll',
+    getAllByTaskId: (taskId: number | string) => `Subtask/GetAllByTaskId/${taskId}`,
+    getById: (id: number | string) => `Subtask/GetById/${id}`,
+    toggleCheck: (id: number | string) => `Subtask/ToggleCheck/${id}`,
+    add: 'Subtask/Add',
+    update: 'Subtask/Update',
+    delete: (id: number | string) => `Subtask/Delete/${id}`,
+}

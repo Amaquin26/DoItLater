@@ -1,6 +1,7 @@
 /* Variables */
 :root {
-  --color-success: #4caf50; /* or your desired green */
+  --color-success: #4caf50;
+  --color-fail: #f44336;
 }
 
 /* Reset margins and paddings */
@@ -28,16 +29,16 @@ html, body {
 
 /* Util Class */
 
-.spinner {
-  animation: spin 1.5s linear infinite;
-  display: inline-block;
-}
-
 .main-container{
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 80vh;
+}
+
+.spinner {
+  animation: spin 1.5s linear infinite;
+  display: inline-block;
 }
 
 @keyframes spin {
@@ -53,4 +54,8 @@ html, body {
 
 .color-success {
   color: var(--color-success);
+}
+
+.color-fail {
+  color: var(--color-fail);
 }

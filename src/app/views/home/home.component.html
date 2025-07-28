@@ -20,7 +20,22 @@
 <app-spinner 
     *ngIf="isFetching()"
 />
+<ng-container *ngIf="!isFetching()">
+    <div class="create-task-button-container">
+        <button
+            tuiButton
+            appearance="primary"
+            iconStart="@tui.plus"
+            type="button"
+            (click)="addTask()"
+            size="m"
+        >
+            Create Task
+        </button>
+    </div>
+    <div class="tasks-cards-container" *ngFor="let task of tasks; trackBy: trackByTaskId">
+        <app-task-cards class="task-card" [task]="task"/>
+    </div>
+    <p class="no-task-text" tuiSubtitle *ngIf="!tasks || !tasks.length">No Task yet</p>
+</ng-container>
 
-<div class="tasks-cards-container" *ngFor="let task of tasks; trackBy: trackByTaskId">
-    <app-task-cards class="task-card" [task]="task"/>
-</div>

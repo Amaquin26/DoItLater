@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { TuiTitle } from '@taiga-ui/core';
+import { TuiButton, TuiTitle } from '@taiga-ui/core';
 import { TuiHeader } from '@taiga-ui/layout';
 import { SearchInputComponent } from "../../shared/components/textfields/search-input/search-input.component";
 import { SORT_BY_FILTERS, SORT_BY_FILTERS_DEFAULT } from '../../shared/constants/filters/sort-filters.constants';
@@ -9,6 +9,9 @@ import { Task } from '../../models/task.model';
 import { NgFor, NgIf } from '@angular/common';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { SpinnerComponent } from "../../shared/components/spinner/spinner.component";
+import { testTaskData } from '../../data/test/task-test.data';
+import { Router } from '@angular/router';
+import { ROUTES } from '../../shared/constants/routes/routes.constants';
 
 @Component({
   selector: 'app-home',
@@ -19,14 +22,16 @@ import { SpinnerComponent } from "../../shared/components/spinner/spinner.compon
     TaskCardsComponent,
     NgFor,
     NgIf,
-    SpinnerComponent
+    SpinnerComponent,
+    TuiButton,
+    TuiTitle
 ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
   
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private router: Router) {}
 
   private destroy$ = new Subject<void>();
 
@@ -47,6 +52,8 @@ export class HomeComponent implements OnInit{
       .subscribe({
         next: (res) => {
           this.tasks = res
+        },
+        error: (err) => {
         }
       });
   }
@@ -68,5 +75,10 @@ export class HomeComponent implements OnInit{
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  addTask() {
+    // Navigate to create task page
+    this.router.navigateByUrl(`/${ROUTES.createTask}`);
   }
 }

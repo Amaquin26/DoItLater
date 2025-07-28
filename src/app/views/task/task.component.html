@@ -2,16 +2,16 @@
     *ngIf="isFetching()"
 />
 
-<ng-container *ngIf="task">
+<ng-container *ngIf="task() && !isFetching()">
     <div
         tuiAppearance="floating"
         tuiCardLarge
     >
         <header tuiHeader="body-m">
             <hgroup tuiTitle>
-                <h1> {{ task.title }} </h1>
+                <h1> {{ task().title }} </h1>
                 <p tuiSubtitle>
-                    {{ task.subtitle }}
+                    {{ task().subtitle }}
                 </p>
             </hgroup>
             <div>
@@ -40,12 +40,12 @@
         <div class="progress-container">
             <div class="progress-container__text-container">
                     <p class="progress-container__label" tuiSubtitle>Progress</p>
-                    <p class="progress-container__percentage" tuiSubtitle>{{ task.progress }}%</p>
+                    <p class="progress-container__percentage" tuiSubtitle>{{ task().progress | toWholeNumber}}%</p>
             </div>
             <progress
                 max="100"
                 tuiProgressBar
-                [value]="task.progress"
+                [value]="task().progress"
             ></progress>
         </div>
 
@@ -56,7 +56,7 @@
                     Status
                 </div>
                 <div>
-                    {{ task.status }}
+                    {{ task().status }}
                 </div>
             </div>
             <div tuiTitle>
@@ -65,7 +65,7 @@
                     Group
                 </div>
                 <div>
-                    {{ task.group ?? 'N/A' }}
+                    {{ task().group ?? 'N/A' }}
                 </div>
             </div>
             <div tuiTitle>
@@ -74,13 +74,13 @@
                     Created
                 </div>
                 <div>
-                    {{ task.dateCreated | utcToLocal}}
+                    {{ task().dateCreated | utcToLocal}}
                 </div>
             </div>
         </div>
     </div>
 
-    <section class="button-group">
+    <!-- <section class="button-group">
         <button
             size="s"
             tuiButton
@@ -89,51 +89,84 @@
         >
             Add subtask
         </button>
-    </section>
-
-
+    </section> -->
 
     <section>
-        <p *ngIf="!task.subtasks || !task.subtasks.length" class="no-substasks" tuiSubtitle>No Subtasks</p>
-        <table
-            tuiTable
-            class="table"
-            [columns]="columns"
-            *ngIf="task.subtasks && task.subtasks.length"
-        >
-            <thead>
-                <tr tuiThGroup>
-                    <th
-                        tuiTh
-                        [resizable]="true"
-                    >
-                        Name
-                    </th>
-                    <th tuiTh>Balance</th>
-                </tr>
-            </thead>
-            <tbody
-                tuiTbody
-                [data]="task.subtasks!"
+        <div class="table-wrapper">
+            <table
+                class="styled-table"
+                
             >
-                <tr
-                    *ngFor="let item of task.subtasks"
-                    tuiTr
-                >
-                    <td
-                        *tuiCell="'beginTime'"
-                        tuiTd
-                    >
-                        {{ item.beginTime | utcToLocal }}
-                    </td>
-                    <td
-                        *tuiCell="'endTime'"
-                        tuiTd
-                    >
-                        {{ item.endTime | utcToLocal }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <thead>
+                    <tr>
+                        <th>Subtask</th>
+                        <th >Status</th>
+                        <th >Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-content *ngFor="let subtask of task().subtasks; trackBy: trackBySubtaskId">
+                        <tr>
+                            <td>
+                                {{ subtask.name }}
+                            </td>
+                            <td>
+                                <tui-icon *ngIf="subtask.isChecked" icon="@tui.check" class="color-success"/>
+                                <tui-icon *ngIf="!subtask.isChecked" icon="@tui.x" class="color-fail"/>
+                            </td>
+                            <td>
+                                <button
+                                    tuiButton
+                                    type="button"
+                                    size="m"
+                                    (click)="toggleCheckSubtask(subtask.id)"
+                                    style="margin-right: 0.5rem;"
+                                    [appearance]="subtask.isChecked ? 'secondary' : 'primary'"
+                                >
+                                    {{ subtask.isChecked ? 'Uncheck' : 'Check' }}
+                                </button>
+                                <button
+                                    size="m"
+                                    tuiButton
+                                    type="button"
+                                    appearance="primary-destructive"
+                                    (click)="deleteSubtask(subtask.id)"
+                                >
+                                    <tui-icon icon="@tui.trash-2"/>
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-content>
+                    <tr>
+                        <td>
+                            <tui-textfield
+                            >
+                                <input
+                                    placeholder="New Subtask"
+                                    tuiTextfield
+                                    [(ngModel)]="newSubtaskName"
+                                    tuiTextfieldSize="s"
+                                />
+                            </tui-textfield>
+                        </td>
+                        <td></td>
+                        <td>
+                            <button
+                                size="m"
+                                tuiButton
+                                type="button"
+                                appearance="primary"
+                                (click)="addSubtask()"
+                                iconEnd="@tui.plus"
+                                [disabled]="!newSubtaskName.trim()"
+                            >
+                                Add
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p *ngIf="!task().subtasks || !task().subtasks?.length" class="no-substasks" tuiSubtitle>No Subtasks</p>
     </section>
 </ng-container>

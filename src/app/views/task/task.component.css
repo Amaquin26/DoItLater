@@ -11,6 +11,7 @@
 }
 
 .no-substasks{
+    margin-top: 1rem;
     text-align: center;
     opacity: 50%;
 }
@@ -21,6 +22,41 @@
     display: flex; 
     justify-content: flex-end;
 }
+
+.table-wrapper {
+    margin-top: 1rem;
+    overflow-x: auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 16px;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+.styled-table thead {
+  background-color: #f5f5f5;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f9fafc;
+}
+
 
 @media (max-width: 600px) {
     .tasks-task-info{

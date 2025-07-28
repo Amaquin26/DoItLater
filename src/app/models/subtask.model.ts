@@ -1,7 +1,7 @@
 export interface Subtask {
     id: number;
     taskId: number;
-    orderId: number;
+    orderId?: number;
     name: string;
     beginTime?: string;
     endTime?: string;

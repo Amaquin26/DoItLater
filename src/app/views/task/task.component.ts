@@ -14,6 +14,7 @@ import { SubtaskService } from '../../api-services/subtasks/subtask.service';
 import { testTaskData } from '../../data/test/task-test.data';
 import { Subtask } from '../../models/subtask.model';
 import { FormsModule } from '@angular/forms';
+import { ToWholeNumberPipe } from '../../shared/pipes/to-whole-number-pipe';
 
 @Component({
   selector: 'app-task',
@@ -32,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     UtcToLocalPipe,
     SpinnerComponent,
     FormsModule,
-    TuiTextfield
+    TuiTextfield,
+    ToWholeNumberPipe,
 ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
@@ -75,11 +77,6 @@ export class TaskComponent implements OnInit {
   ngOnInit(): void {
     this.taskId = this.route.snapshot.paramMap.get('id')!;
     this.isFetching.set(true);
-
-    // testing data
-    this.task.set(testTaskData.find(task => task.id === Number(this.taskId))!);
-    this.isFetching.set(false);
-    // end testing data
 
     this.taskService
       .getById(this.taskId)
@@ -128,22 +125,7 @@ export class TaskComponent implements OnInit {
   }
 
   deleteSubtask(subtaskId: number){
-    // testing data
-    this.task.update(
-      (prev) => (
-        { 
-          ...prev, 
-          subtasks: prev.subtasks?.filter(subtask => subtask.id !== subtaskId)
-        }
-      )
-    );
-    this.task.update(prev => ({
-      ...prev,
-      progress: !prev.subtasks ? 0 : prev.subtasks.filter(subtask => subtask.isChecked).length / (prev.subtasks?.length || 1) * 100
-    }));
-    // end testing data
-
-    /* this.subtaskService
+    this.subtaskService
       .delete(subtaskId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -160,35 +142,18 @@ export class TaskComponent implements OnInit {
         error:(err) => {
           //TODO: show error message like task not found
         }
-    }); */
+    });
   }
 
   toggleCheckSubtask(subtaskId: number){
-
-    // testing data
-    console.log("test")
-    this.task.update(prev => ({
-      ...prev,
-      subtasks: prev.subtasks?.map(subtask =>
-        subtask.id === subtaskId
-          ? { ...subtask, isChecked: !subtask.isChecked }
-          : subtask
-        )
-    }));
-    this.task.update(prev => ({
-      ...prev,
-      progress: !prev.subtasks ? 0 : prev.subtasks.filter(subtask => subtask.isChecked).length / (prev.subtasks?.length || 1) * 100
-    }));
-    
-    // end testing data
-
-    /* this.subtaskService
+    this.subtaskService
       .toggleCheck(subtaskId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: () => {
+        next: (res) => {
           this.task.update(prev => ({
             ...prev,
+            progress: res,
             subtasks: prev.subtasks?.map(subtask =>
               subtask.id === subtaskId
                 ? { ...subtask, isChecked: !subtask.isChecked }
@@ -199,27 +164,42 @@ export class TaskComponent implements OnInit {
         error:(err) => {
 
         }
-      }); */
+      });
   }
 
   addSubtask()
   {
-    //testdata
-    this.task.update(prev => ({
-      ...prev,
-        subtasks: prev.subtasks ? [...prev.subtasks, {
-          id: prev.subtasks.length + 1,
-          taskId: prev.id,
+    this.subtaskService
+      .add(
+        {
           name: this.newSubtaskName,
-          dateCreated: new Date().toISOString(),
-          isChecked: false
-        }] : prev.subtasks
-      }));
-      this.task.update(prev => ({
-        ...prev,
-        progress: !prev.subtasks ? 0 : prev.subtasks.filter(subtask => subtask.isChecked).length / (prev.subtasks?.length || 1) * 100
-      }));
-      //end testdata
-      this.newSubtaskName = "";
+          taskId: this.taskId,
+        }
+      )
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          this.task.update(prev => ({
+            ...prev,
+            subtasks: prev.subtasks ? [...prev.subtasks, {
+              id: res,
+              taskId: prev.id,
+              name: this.newSubtaskName,
+              dateCreated: new Date().toISOString(),
+              isChecked: false
+            }] : prev.subtasks
+          }));
+
+          this.task.update(prev => ({
+            ...prev,
+            progress: !prev.subtasks ? 0 : prev.subtasks.filter(subtask => subtask.isChecked).length / (prev.subtasks?.length || 1) * 100
+          }));
+
+          this.newSubtaskName = "";
+        },
+        error:(err) => {
+
+        }
+      });     
   }
 }

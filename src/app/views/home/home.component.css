@@ -9,3 +9,15 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
+.create-task-button-container{
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.no-task-text{
+    text-align: center;
+    opacity: 50%;
+}

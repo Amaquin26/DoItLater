@@ -40,7 +40,7 @@
         <div class="progress-container">
             <div class="progress-container__text-container">
                     <p class="progress-container__label" tuiSubtitle>Progress</p>
-                    <p class="progress-container__percentage" tuiSubtitle>{{ task().progress }}%</p>
+                    <p class="progress-container__percentage" tuiSubtitle>{{ task().progress | toWholeNumber}}%</p>
             </div>
             <progress
                 max="100"
@@ -92,12 +92,10 @@
     </section> -->
 
     <section>
-        <p *ngIf="!task().subtasks || !task().subtasks?.length" class="no-substasks" tuiSubtitle>No Subtasks</p>
-        
         <div class="table-wrapper">
             <table
                 class="styled-table"
-                *ngIf="task().subtasks && task().subtasks?.length"
+                
             >
                 <thead>
                     <tr>
@@ -169,5 +167,6 @@
                 </tbody>
             </table>
         </div>
+        <p *ngIf="!task().subtasks || !task().subtasks?.length" class="no-substasks" tuiSubtitle>No Subtasks</p>
     </section>
 </ng-container>

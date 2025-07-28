@@ -11,6 +11,7 @@
 }
 
 .no-substasks{
+    margin-top: 1rem;
     text-align: center;
     opacity: 50%;
 }

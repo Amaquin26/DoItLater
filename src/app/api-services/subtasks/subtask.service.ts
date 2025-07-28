@@ -24,12 +24,12 @@ export class SubtaskService {
     return this.httpClient.get<Subtask>(`${environment.apiBaseUrl}/${SUBTASK_API_ROUTE.getById(taskId)}`);
   }
 
-  toggleCheck(taskId: number | string){
-    return this.httpClient.post(`${environment.apiBaseUrl}/${SUBTASK_API_ROUTE.toggleCheck(taskId)}`,undefined);
+  toggleCheck(taskId: number | string): Observable<number>{
+    return this.httpClient.post<number>(`${environment.apiBaseUrl}/${SUBTASK_API_ROUTE.toggleCheck(taskId)}`,undefined);
   }
   
-  add(formData:any){
-    return this.httpClient.post(`${environment.apiBaseUrl}/${SUBTASK_API_ROUTE.add}`, formData);
+  add(formData:any): Observable<number>{
+    return this.httpClient.post<number>(`${environment.apiBaseUrl}/${SUBTASK_API_ROUTE.add}`, formData);
   }
 
   update(formData:any){
